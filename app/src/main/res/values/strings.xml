@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MAF-02</string>
+    <string name="count_button">Count</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="toast_button">Toast</string>
+    <string name="toast_message">This is called a toast! </string>
+    <string name="activity_button">Other Activity</string>
+    <string name="back_button">Back</string>
+
+    <string-array name="spinner_values">
+        <item>Espresso</item>
+        <item>Americano</item>
+        <item>Cappucino</item>
+    </string-array>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="alert_button">Alert</string>
+    <string name="fragment_button">Time Picker</string>
+    <string name="alert_text">This is an alert!</string>
+</resources>

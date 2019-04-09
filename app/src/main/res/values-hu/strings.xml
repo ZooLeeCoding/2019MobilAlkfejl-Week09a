@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MAF-02</string>
+    <string name="count_button">Számolj</string>
+    <string name="hello_world">Szia Világ!</string>
+    <string name="toast_button">Üzenj!</string>
+    <string name="toast_message">"Ez egy Toast üzenet! "</string>
+    <string name="activity_button">Másik Activity</string>
+    <string name="back_button">Back</string>
+
+    <string-array name="spinner_values">
+        <item>Espresso</item>
+        <item>Americano</item>
+        <item>Cappucino</item>
+    </string-array>
+    <string name="ok_button">Rendben</string>
+    <string name="cancel_button">Mégsem</string>
+    <string name="alert_button">Riasztás</string>
+    <string name="fragment_button">Időválasztó</string>
+    <string name="alert_text">Ez egy riasztás</string>
+</resources>
