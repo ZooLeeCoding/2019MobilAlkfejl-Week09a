@@ -13,4 +13,7 @@
     <item
         android:id="@+id/item_notification"
         android:title="Notify" />
+    <item
+        android:id="@+id/item_alarm"
+        android:title="Alarm" />
 </menu>

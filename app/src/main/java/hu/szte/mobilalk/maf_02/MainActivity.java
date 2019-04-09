@@ -1,5 +1,6 @@
 package hu.szte.mobilalk.maf_02;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private TextView helloView;
 
     private BroadcastReceiver br;
+    private AlarmManager mAlarmManager;
 
     public static final String EXTRA_MESSAGE = "hu.szte.mobilalk.maf_02.MESSAGE";
     public static final int TEXT_REQUEST = 1;
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity
         //IntentFilter filter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
         IntentFilter filter = new IntentFilter("hu.szte.mobilalkfejl.CUSTOM_BROADCAST");
         this.registerReceiver(this.br, filter);
+
+        this.mAlarmManager =
+                (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
     }
 
     @Override
@@ -96,11 +102,23 @@ public class MainActivity extends AppCompatActivity
             case R.id.item_notification:
                 notifyMe();
                 break;
+            case R.id.item_alarm:
+                setAlarm();
+                break;
             default:
                 Toast.makeText(this, "invalid selection", Toast.LENGTH_SHORT)
                         .show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setAlarm() {
+        Intent intent = new Intent("hu.szte.mobilalkfejl.CUSTOM_BROADCAST");
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(this, 0,intent, 0);
+
+        this.mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 10 * 1000, pendingIntent);
     }
 
     public void notifyMe() {
