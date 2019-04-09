@@ -28,6 +28,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks<String> {
 
@@ -126,9 +128,18 @@ public class MainActivity extends AppCompatActivity
                 SystemClock.elapsedRealtime() + 10 * 1000, pendingIntent);*/
 
         // 30 masodperccel inditas utan es aztan 30 masodpercenkent ismetles
-        this.mAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+        /*this.mAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + 30 * 1000,
-                30 * 1000, alarmPendingIntent);
+                30 * 1000, alarmPendingIntent);*/
+
+        // 13:09 perckor hivodjon meg, aztan pedig 10 masodpercenkent ismetlodjon
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.MINUTE, 9);
+        this.mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), 10 * 1000,
+                this.alarmPendingIntent);
 
     }
 
