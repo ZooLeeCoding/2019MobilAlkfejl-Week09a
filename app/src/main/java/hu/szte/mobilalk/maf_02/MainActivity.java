@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     private BroadcastReceiver br;
     private AlarmManager mAlarmManager;
+    private PendingIntent alarmPendingIntent;
 
     public static final String EXTRA_MESSAGE = "hu.szte.mobilalk.maf_02.MESSAGE";
     public static final int TEXT_REQUEST = 1;
@@ -105,6 +106,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.item_alarm:
                 setAlarm();
                 break;
+            case R.id.item_cancel_alarm:
+                cancelAlarms();
+                break;
             default:
                 Toast.makeText(this, "invalid selection", Toast.LENGTH_SHORT)
                         .show();
@@ -114,11 +118,24 @@ public class MainActivity extends AppCompatActivity
 
     public void setAlarm() {
         Intent intent = new Intent("hu.szte.mobilalkfejl.CUSTOM_BROADCAST");
-        PendingIntent pendingIntent =
+        this.alarmPendingIntent =
                 PendingIntent.getBroadcast(this, 0,intent, 0);
 
-        this.mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + 10 * 1000, pendingIntent);
+        // 10 masodperccel inditas utan fusson le
+        /*this.mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 10 * 1000, pendingIntent);*/
+
+        // 30 masodperccel inditas utan es aztan 30 masodpercenkent ismetles
+        this.mAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 30 * 1000,
+                30 * 1000, alarmPendingIntent);
+
+    }
+
+    public void cancelAlarms() {
+        if(this.mAlarmManager != null && this.alarmPendingIntent != null) {
+            this.mAlarmManager.cancel(this.alarmPendingIntent);
+        }
     }
 
     public void notifyMe() {

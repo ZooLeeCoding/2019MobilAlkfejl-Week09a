@@ -16,4 +16,7 @@
     <item
         android:id="@+id/item_alarm"
         android:title="Alarm" />
+    <item
+        android:id="@+id/item_cancel_alarm"
+        android:title="Cancel Alarm" />
 </menu>
