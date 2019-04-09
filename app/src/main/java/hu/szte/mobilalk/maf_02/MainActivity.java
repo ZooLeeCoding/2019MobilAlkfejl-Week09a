@@ -2,6 +2,7 @@ package hu.szte.mobilalk.maf_02;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -80,20 +81,24 @@ public class MainActivity extends AppCompatActivity
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /*Toast toast = Toast.makeText(getApplicationContext(), item.getTitle(),
-                Toast.LENGTH_SHORT);
-        toast.show();*/
 
-        if(id == R.id.item_async) {
-            //new SleeperTask(this.helloView).execute();
-            getSupportLoaderManager().restartLoader(0, null,
-                    this);
-        } else if(id == R.id.item_book) {
-            launchBookSearch();
-        } else if(id == R.id.item_broadcast) {
-            startBroadcasting();
-        } else if(id == R.id.item_notification) {
-            notifyMe();
+        switch(id) {
+            case R.id.item_async:
+                getSupportLoaderManager().restartLoader(0, null,
+                        this);
+                break;
+            case R.id.item_book:
+                launchBookSearch();
+                break;
+            case R.id.item_broadcast:
+                startBroadcasting();
+                break;
+            case R.id.item_notification:
+                notifyMe();
+                break;
+            default:
+                Toast.makeText(this, "invalid selection", Toast.LENGTH_SHORT)
+                        .show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -112,13 +117,19 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this, (name != null ? name.toString(): null))
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("Értesítés a Mobil kurzusról")
                         .setContentText(this.helloView.getText())
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                        .setContentIntent(pendingIntent)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true);
 
         NotificationManagerCompat notificationManagerCompat =
                 NotificationManagerCompat.from(this);
